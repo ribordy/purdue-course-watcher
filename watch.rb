@@ -2,6 +2,9 @@ require 'net/http'
 require 'net/https'
 require 'nokogiri'
 
+application_token = ""
+user_token = ""
+
 def get_availability_ssl(crn, term)
 
   http = Net::HTTP.new("selfservice.mypurdue.purdue.edu", 443)
@@ -27,8 +30,8 @@ def push_message(class_name, open_slots)
   url = URI.parse("https://api.pushover.net/1/messages")
   req = Net::HTTP::Post.new(url.path)
   req.set_form_data({
-    :token => "PUSHOVER APP TOKEN HERE",
-    :user => "PUSHOVER USER TOKEN HERE",
+    :token => application_token,
+    :user => user_token,
     :message => "There are #{open_slots} open seats in #{class_name}! Go register!",
   })
   res = Net::HTTP.new(url.host, url.port)
